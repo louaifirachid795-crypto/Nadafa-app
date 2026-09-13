@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:geolocator/geolocator.dart';
 void main() {
   runApp(const NadafaApp());
 }
@@ -8,7 +8,7 @@ class NadafaApp extends StatelessWidget {
   const NadafaApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'نظافة',
