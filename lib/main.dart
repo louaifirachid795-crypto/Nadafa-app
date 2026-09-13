@@ -99,19 +99,80 @@ class HomePage extends StatelessWidget {
 }
 
 // صفحة المواطن
-class CitizenPage extends StatelessWidget {
+class CitizenPage extends StatefulWidget {
   const CitizenPage({super.key});
+
+  @override
+  State<CitizenPage> createState() => _CitizenPageState();
+}
+
+class _CitizenPageState extends State<CitizenPage> {
+  String message = 'اضغط على الزر لتحديد موقع منزلك';
+
+  Future<void> getLocation() async {
+    try {
+      bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
+
+      if (!serviceEnabled) {
+        setState(() {
+          message = 'يرجى تشغيل خدمة الموقع GPS في الهاتف';
+        });
+        return;
+      }
+
+      LocationPermission permission =
+          await Geolocator.checkPermission();
+
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+
+        if (permission == LocationPermission.denied) {
+          setState(() {
+            message = 'تم رفض إذن الموقع';
+          });
+          return;
+        }
+      }
+
+      if (permission == LocationPermission.deniedForever) {
+        setState(() {
+          message = 'إذن الموقع مرفوض نهائياً. افتح إعدادات التطبيق.';
+        });
+        return;
+      }
+
+      setState(() {
+        message = 'جاري تحديد موقعك...';
+      });
+
+      Position position = await Geolocator.getCurrentPosition(
+        locationSettings: const LocationSettings(
+          accuracy: LocationAccuracy.high,
+        ),
+      );
+
+      setState(() {
+        message =
+            'تم تحديد الموقع بنجاح\n'
+            'خط العرض: ${position.latitude}\n'
+            'خط الطول: ${position.longitude}';
+      });
+    } catch (e) {
+      setState(() {
+        message = 'حدث خطأ أثناء تحديد الموقع';
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('واجهة المواطن'),
-        centerTitle: true,
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(24),
+          padding: const EdgeInsets.all(20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -120,61 +181,30 @@ class CitizenPage extends StatelessWidget {
                 size: 90,
               ),
               const SizedBox(height: 20),
+
               const Text(
-                'مرحبًا بك أيها المواطن',
+                'مرحباً بك أيها المواطن',
                 style: TextStyle(
-                  fontSize: 25,
+                  fontSize: 24,
                   fontWeight: FontWeight.bold,
                 ),
-              ),
-              const SizedBox(height: 15),
-              const Text(
-                'سيتم هنا تحديد موقع منزلك\nومتابعة شاحنة النظافة.',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 17),
               ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
 
-// صفحة السائق
-class DriverPage extends StatelessWidget {
-  const DriverPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('واجهة السائق'),
-        centerTitle: true,
-      ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(24),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(
-                Icons.local_shipping,
-                size: 90,
-              ),
               const SizedBox(height: 20),
-              const Text(
-                'واجهة السائق',
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 15),
-              const Text(
-                'من هنا سيتم بدء الرحلة\nوتحديث موقع الشاحنة.',
+
+              Text(
+                message,
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 17),
+                style: const TextStyle(fontSize: 18),
+              ),
+
+              const SizedBox(height: 30),
+
+              ElevatedButton.icon(
+                onPressed: getLocation,
+                icon: const Icon(Icons.location_on),
+                label: const Text('تحديد موقع منزلي'),
               ),
             ],
           ),
