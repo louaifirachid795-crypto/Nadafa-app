@@ -212,4 +212,46 @@ class _CitizenPageState extends State<CitizenPage> {
       ),
     );
   }
+class DriverPage extends StatelessWidget {
+  const DriverPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('واجهة السائق'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(
+              Icons.local_shipping,
+              size: 90,
+            ),
+            const SizedBox(height: 20),
+            const Text(
+              'مرحباً بك أيها السائق',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 30),
+            ElevatedButton.icon(
+              onPressed: () {},
+              icon: const Icon(Icons.play_arrow),
+              label: const Text('بدء الرحلة'),
+            ),
+            const SizedBox(height: 15),
+            ElevatedButton.icon(
+              onPressed: () {},
+              icon: const Icon(Icons.stop),
+              label: const Text('إيقاف الرحلة'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
