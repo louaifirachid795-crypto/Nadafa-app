@@ -64,11 +64,9 @@ class HomePage extends StatelessWidget {
   MaterialPageRoute(
     builder: (context) => Scaffold(
       appBar: AppBar(
-        title: const Text('دخول المواطن'),
-      ),
-      body: const Center(
-        child: Text(
-          'صفحة المواطن',
+        
+  title: const Text('صفحة المواطن'),
+),
           style: TextStyle(fontSize: 24),
         ),
       ),
