@@ -21,7 +21,16 @@ jobs:
           channel: stable
 
       - name: Create Android project
-          run: flutter create --platforms=android .
+        run: flutter create --platforms=android .
+
+      - name: Add location permissions
+        run: |
+          sed -i '/<manifest /a\
+          <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />\
+          <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />' android/app/src/main/AndroidManifest.xml
+
+      - name: Get dependencies
+        run: flutter pub get
 
       - name: Build APK
         run: flutter build apk --release
