@@ -59,16 +59,29 @@ class HomePage extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton.icon(
-                  onPressed: () {
-                    Navigator.push(
+                  onPressed: () Navigator.push(
+  context,
+  MaterialPageRoute(
+    builder: (context) => Scaffold(
+      appBar: AppBar(
+        title: const Text('دخول المواطن'),
+      ),
+      body: const Center(
+        child: Text(
+          'صفحة المواطن',
+          style: TextStyle(fontSize: 24),
+        ),
+      ),
+    ),
+  ),
+);
                       context,
                       MaterialPageRoute(
                         builder: (context) => const CitizenPage(),
                       ),
                     );
                   },
-                  icon: const Icon(Icons.person),
-                  label: const Text('دخول المواطن'),
+                  ('دخول المواطن'),
                 ),
               ),
 
