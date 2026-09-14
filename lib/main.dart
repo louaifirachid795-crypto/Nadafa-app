@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
+
 void main() {
   runApp(const NadafaApp());
 }
@@ -8,26 +8,29 @@ class NadafaApp extends StatelessWidget {
   const NadafaApp({super.key});
 
   @override
-  Widget build(BuildContext context) { 
+  Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'نظافة',
+      title: 'تطبيق النظافة',
       theme: ThemeData(
-        useMaterial3: true,
+        primarySwatch: Colors.blue,
+        fontFamily: 'Arial',
       ),
-      home: const HomePage(),
+      home: const WelcomePage(),
     );
   }
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+// ==================== الصفحة الرئيسية ====================
+
+class WelcomePage extends StatelessWidget {
+  const WelcomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('تطبيق نظافة'),
+        title: const Text('تطبيق النظافة'),
         centerTitle: true,
       ),
       body: Center(
@@ -36,69 +39,71 @@ class HomePage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+
               const Icon(
                 Icons.local_shipping,
-                size: 90,
+                size: 100,
+                color: Colors.blue,
               ),
+
               const SizedBox(height: 20),
+
               const Text(
-                'مرحبًا بك في نظافة',
+                'معًا من أجل مدينة نظيفة',
+                textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 28,
+                  fontSize: 26,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 12),
-              const Text(
-                'اختر طريقة الدخول',
-                style: TextStyle(fontSize: 18),
-              ),
-              const SizedBox(height: 35),
 
-              // دخول المواطن
+              const SizedBox(height: 40),
+
+              // زر المواطن
               SizedBox(
                 width: double.infinity,
+                height: 55,
                 child: ElevatedButton.icon(
-                  onPressed: () Navigator.push(
-  context,
-  MaterialPageRoute(
-    builder: (context) => Scaffold(
-      appBar: AppBar(
-        
-  title: const Text('صفحة المواطن'),
-),
-          style: TextStyle(fontSize: 24),
-        ),
-      ),
-    ),
-  ),
-);
+                  icon: const Icon(Icons.person),
+                  label: const Text(
+                    'دخول مواطن',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => const CitizenPage(),
                       ),
                     );
                   },
-                  ('دخول المواطن'),
                 ),
               ),
 
-              const SizedBox(height: 15),
+              const SizedBox(height: 20),
 
-              // دخول السائق
+              // زر السائق
               SizedBox(
                 width: double.infinity,
+                height: 55,
                 child: ElevatedButton.icon(
+                  icon: const Icon(Icons.local_shipping),
+                  label: const Text(
+                    'دخول سائق',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.orange,
+                    foregroundColor: Colors.white,
+                  ),
                   onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>DriverPage(),
+                        builder: (context) => const DriverPage(),
                       ),
                     );
                   },
-                  icon: const Icon(Icons.drive_eta),
-                  label: const Text('دخول السائق'),
                 ),
               ),
             ],
@@ -109,101 +114,174 @@ class HomePage extends StatelessWidget {
   }
 }
 
-// صفحة المواط// صفحة المواطن
-class CitizenPage extends StatefulWidget {
+// ==================== صفحة المواطن ====================
+
+class CitizenPage extends StatelessWidget {
   const CitizenPage({super.key});
-
-  @override
-  State<CitizenPage> createState() => _CitizenPageState();
-}
-
-class _CitizenPageState extends State<CitizenPage> {
-  String message = 'اضغط الزر لتحديد موقع منزلك';
-
-  Future<void> getLocation() async {
-    try {
-      bool serviceEnabled =
-          await Geolocator.isLocationServiceEnabled();
-
-      if (!serviceEnabled) {
-        setState(() {
-          message = 'يرجى تشغيل خدمة الموقع في الهاتف';
-        });
-        return;
-      }
-
-      LocationPermission permission =
-          await Geolocator.checkPermission();
-
-      if (permission == LocationPermission.denied) {
-        permission = await Geolocator.requestPermission();
-
-        if (permission == LocationPermission.denied) {
-          setState(() {
-            message = 'تم رفض إذن الموقع';
-          });
-          return;
-        }
-      }
-
-      if (permission == LocationPermission.deniedForever) {
-        setState(() {
-          message = 'إذن الموقع مرفوض نهائياً';
-        });
-        return;
-      }
-
-      final Position position =
-          await Geolocator.getCurrentPosition();
-
-      setState(() {
-        message =
-            'تم تحديد موقع منزلك\n'
-            'خط العرض: ${position.latitude}\n'
-            'خط الطول: ${position.longitude}';
-      });
-    } catch (e) {
-      setState(() {
-        message = 'حدث خطأ أثناء تحديد الموقع';
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('صفحة المواطن'),
+        centerTitle: true,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          children: [
+
+            const SizedBox(height: 30),
+
+            const Icon(
+              Icons.person,
+              size: 80,
+              color: Colors.blue,
+            ),
+
+            const SizedBox(height: 20),
+
+            const Text(
+              'مرحبًا بك أيها المواطن',
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            const SizedBox(height: 30),
+
+            // موقع المنزل
+            SizedBox(
+              width: double.infinity,
+              height: 55,
+              child: ElevatedButton.icon(
+                icon: const Icon(Icons.location_on),
+                label: const Text(
+                  'تحديد موقع المنزل',
+                  style: TextStyle(fontSize: 17),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const HomeLocationPage(),
+                    ),
+                  );
+                },
+              ),
+            ),
+
+            const SizedBox(height: 15),
+
+            // موقع الشاحنة
+            SizedBox(
+              width: double.infinity,
+              height: 55,
+              child: ElevatedButton.icon(
+                icon: const Icon(Icons.local_shipping),
+                label: const Text(
+                  'عرض موقع الشاحنة',
+                  style: TextStyle(fontSize: 17),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const TruckPage(),
+                    ),
+                  );
+                },
+              ),
+            ),
+
+            const SizedBox(height: 15),
+
+            // الإشعارات
+            SizedBox(
+              width: double.infinity,
+              height: 55,
+              child: ElevatedButton.icon(
+                icon: const Icon(Icons.notifications),
+                label: const Text(
+                  'الإشعارات',
+                  style: TextStyle(fontSize: 17),
+                ),
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('ستصل إشعارات مرور الشاحنة هنا'),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ==================== تحديد موقع المنزل ====================
+
+class HomeLocationPage extends StatelessWidget {
+  const HomeLocationPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('تحديد موقع المنزل'),
+        centerTitle: true,
       ),
       body: Center(
         child: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(25),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+
               const Icon(
-                Icons.person_pin_circle,
-                size: 90,
+                Icons.location_on,
+                size: 100,
+                color: Colors.red,
               ),
+
               const SizedBox(height: 20),
+
               const Text(
-                'مرحباً بك أيها المواطن',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 20),
-              Text(
-                message,
+                'هنا سيتم تحديد موقع منزلك على الخريطة',
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 18),
+                style: TextStyle(fontSize: 20),
               ),
+
               const SizedBox(height: 30),
+
               ElevatedButton.icon(
-                onPressed: getLocation,
-                icon: const Icon(Icons.location_on),
-                label: const Text('تحديد موقع منزلي'),
+                icon: const Icon(Icons.save),
+                label: const Text('حفظ موقع المنزل'),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: const Text('تم الحفظ'),
+                        content: const Text(
+                          'تم حفظ موقع المنزل بنجاح.',
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text('حسنًا'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                },
               ),
             ],
           ),
@@ -212,6 +290,45 @@ class _CitizenPageState extends State<CitizenPage> {
     );
   }
 }
+
+// ==================== موقع الشاحنة ====================
+
+class TruckPage extends StatelessWidget {
+  const TruckPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('موقع الشاحنة'),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+
+            Icon(
+              Icons.local_shipping,
+              size: 100,
+              color: Colors.green,
+            ),
+
+            SizedBox(height: 20),
+
+            Text(
+              'سيظهر موقع شاحنة النظافة هنا',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 20),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ==================== صفحة السائق ====================
 
 class DriverPage extends StatefulWidget {
   const DriverPage({super.key});
@@ -222,117 +339,75 @@ class DriverPage extends StatefulWidget {
 
 class _DriverPageState extends State<DriverPage> {
   bool tripStarted = false;
-  String message = 'جاهز للانطلاق';
-
-  Future<void> getLocation() async {
-    try {
-      bool serviceEnabled =
-          await Geolocator.isLocationServiceEnabled();
-
-      if (!serviceEnabled) {
-        setState(() {
-          message = 'يرجى تشغيل خدمة الموقع في الهاتف';
-        });
-        return;
-      }
-
-      LocationPermission permission =
-          await Geolocator.checkPermission();
-
-      if (permission == LocationPermission.denied) {
-        permission = await Geolocator.requestPermission();
-
-        if (permission == LocationPermission.denied) {
-          setState(() {
-            message = 'تم رفض إذن الموقع';
-          });
-          return;
-        }
-      }
-
-      if (permission == LocationPermission.deniedForever) {
-        setState(() {
-          message = 'إذن الموقع مرفوض نهائياً';
-        });
-        return;
-      }
-
-      final Position position =
-          await Geolocator.getCurrentPosition();
-
-      setState(() {
-        message =
-            'GPS يعمل\n'
-            'خط العرض: ${position.latitude}\n'
-            'خط الطول: ${position.longitude}';
-      });
-    } catch (e) {
-      setState(() {
-        message = 'حدث خطأ أثناء تحديد الموقع';
-      });
-    }
-  }
-
-  void startTrip() {
-    setState(() {
-      tripStarted = true;
-      message = 'الرحلة بدأت';
-    });
-
-    getLocation();
-  }
-
-  void stopTrip() {
-    setState(() {
-      tripStarted = false;
-      message = 'تم إيقاف الرحلة';
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('واجهة السائق'),
+        title: const Text('صفحة السائق'),
+        centerTitle: true,
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(
-                Icons.local_shipping,
-                size: 90,
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+
+            Icon(
+              Icons.local_shipping,
+              size: 100,
+              color: tripStarted ? Colors.green : Colors.orange,
+            ),
+
+            const SizedBox(height: 20),
+
+            Text(
+              tripStarted
+                  ? 'الرحلة تعمل الآن'
+                  : 'الرحلة متوقفة',
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
               ),
-              const SizedBox(height: 20),
-              const Text(
-                'مرحباً بك أيها السائق',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+            ),
+
+            const SizedBox(height: 40),
+
+            SizedBox(
+              width: double.infinity,
+              height: 55,
+              child: ElevatedButton.icon(
+                icon: Icon(
+                  tripStarted
+                      ? Icons.stop
+                      : Icons.play_arrow,
                 ),
+                label: Text(
+                  tripStarted
+                      ? 'إيقاف الرحلة'
+                      : 'بدء الرحلة',
+                  style: const TextStyle(fontSize: 18),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor:
+                      tripStarted ? Colors.red : Colors.green,
+                  foregroundColor: Colors.white,
+                ),
+                onPressed: () {
+                  setState(() {
+                    tripStarted = !tripStarted;
+                  });
+                },
               ),
-              const SizedBox(height: 20),
-              Text(
-                message,
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 18),
-              ),
-              const SizedBox(height: 30),
-              ElevatedButton.icon(
-                onPressed: tripStarted ? null : startTrip,
-                icon: const Icon(Icons.play_arrow),
-                label: const Text('بدء الرحلة'),
-              ),
-              const SizedBox(height: 15),
-              ElevatedButton.icon(
-                onPressed: tripStarted ? stopTrip : null,
-                icon: const Icon(Icons.stop),
-                label: const Text('إيقاف الرحلة'),
-              ),
-            ],
-          ),
+            ),
+
+            const SizedBox(height: 20),
+
+            const Text(
+              'سيتم لاحقًا ربط GPS وFirebase هنا',
+              textAlign: TextAlign.center,
+            ),
+          ],
         ),
       ),
     );
