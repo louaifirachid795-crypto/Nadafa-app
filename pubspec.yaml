@@ -1,7 +1,9 @@
 name: nadafa_app
 description: تطبيق تنبيه شاحنة النظافة
 publish_to: "none"
-
+- name: Add location permission
+  run: |
+    sed -i '/<manifest/a\    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>' android/app/src/main/AndroidManifest.xml
 version: 1.0.0+1
 
 environment:
