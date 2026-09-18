@@ -1,3 +1,4 @@
+
 name: nadafa_app
 
 on:
@@ -22,10 +23,12 @@ jobs:
       - name: Create Android project
         run: flutter create --platforms=android .
 
-      - name: Add location permissions
+      - name: Add Android permissions and Google Maps key
         run: |
           sed -i '/<manifest/a\    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>' android/app/src/main/AndroidManifest.xml
           sed -i '/<manifest/a\    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>' android/app/src/main/AndroidManifest.xml
+          sed -i '/<manifest/a\    <uses-permission android:name="android.permission.INTERNET"/>' android/app/src/main/AndroidManifest.xml
+          sed -i '/<\/application>/i\        <meta-data android:name="com.google.android.geo.API_KEY" android:value="${{ secrets.GOOGLE_MAPS_API_KEY }}" />' android/app/src/main/AndroidManifest.xml
 
       - name: Get dependencies
         run: flutter pub get
