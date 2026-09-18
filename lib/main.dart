@@ -126,47 +126,87 @@ class HomePage extends StatelessWidget {
 
 // ==================== صفحة المواطن ====================
 
-class CitizenPage extends StatelessWidget {
+class CitizenPage extends StatefulWidget {
   const CitizenPage({super.key});
 
   @override
+  State<CitizenPage> createState() => _CitizenPageState();
+}
+
+class _CitizenPageState extends State<CitizenPage> {
+  LatLng selectedHome = LatLng(36.7538, 3.0588);
+
+  Set<Marker> markers = {};
+
+  @override
   Widget build(BuildContext context) {
-  return Scaffold(
-    appBar: AppBar(
-      title: const Text('تطبيق المواطن'),
-      centerTitle: true,
-    ),
-    body: Column(
-      children: [
-        
-        SizedBox(
-  height: 350,
-  width: double.infinity,
-  child: GoogleMap(
-    initialCameraPosition: CameraPosition(
-      target: LatLng(36.7538, 3.0588),
-      zoom: 14,
-    ),
-    zoomControlsEnabled: true,
-    myLocationButtonEnabled: false,
-  ),
-),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('تطبيق المواطن'),
+        centerTitle: true,
+      ),
 
-const SizedBox(height: 25),
+      body: Column(
+        children: [
 
-const Icon(
-  Icons.home,
-  size: 70,
-  color: Colors.blue,
-),
+          SizedBox(
+            height: 350,
+            width: double.infinity,
+            child: GoogleMap(
+              initialCameraPosition: CameraPosition(
+                target: LatLng(36.7538, 3.0588),
+                zoom: 14,
+              ),
 
-const SizedBox(height: 15),
+              zoomControlsEnabled: true,
 
-const Text(
-  'حدد موقع منزلك',
+              myLocationButtonEnabled: false,
+
+              markers: markers,
+
+              onTap: (LatLng position) {
+                setState(() {
+                  selectedHome = position;
+
+                  markers = {
+                    Marker(
+                      markerId: const MarkerId('home'),
+                      position: position,
+                      infoWindow: const InfoWindow(
+                        title: 'موقع المنزل',
+                      ),
+                    ),
+                  };
+                });
+              },
+            ),
+          ),
+
+          const SizedBox(height: 25),
+
+          const Icon(
+            Icons.home,
+            size: 70,
+            color: Colors.blue,
+          ),
+
+          const SizedBox(height: 15),
+
+          const Text(
+            'حدد موقع منزلك',
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
+            ),
+          ),
+
+          const SizedBox(height: 10),
+
+          const Text(
+            'اضغط على الخريطة لتحديد موقع المنزل',
+            style: TextStyle(
+              fontSize: 16,
+              color: Colors.grey,
             ),
           ),
 
@@ -174,27 +214,36 @@ const Text(
 
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
+
             child: SizedBox(
               width: double.infinity,
               height: 55,
+
               child: ElevatedButton.icon(
                 icon: const Icon(Icons.location_on),
+
                 label: const Text(
                   'حفظ موقع المنزل',
                   style: TextStyle(fontSize: 18),
                 ),
+
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
                   foregroundColor: Colors.white,
                 ),
+
                 onPressed: () {
+
                   ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
+                    SnackBar(
                       content: Text(
-                        'سيتم حفظ موقع المنزل هنا',
+                        'تم تحديد موقع المنزل\n'
+                        'خط العرض: ${selectedHome.latitude.toStringAsFixed(6)}\n'
+                        'خط الطول: ${selectedHome.longitude.toStringAsFixed(6)}',
                       ),
                     ),
                   );
+
                 },
               ),
             ),
