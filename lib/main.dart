@@ -140,8 +140,8 @@ class CitizenPage extends StatelessWidget {
     3.0588,
   );
 
-  @override
-  Widget build(BuildContext context) {
+@override
+Widget build(BuildContext context) {
   return Scaffold(
     appBar: AppBar(
       title: const Text('تطبيق المواطن'),
@@ -194,63 +194,45 @@ class CitizenPage extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
-            ),
-          ),
 
-          const SizedBox(height: 25),
+        const SizedBox(height: 25),
 
-          const Icon(
-            Icons.home,
-            size: 70,
-            color: Colors.blue,
-          ),
-
-          const SizedBox(height: 15),
-
-          const Text(
-            'حدد موقع منزلك',
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-
-          const SizedBox(height: 25),
-
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: SizedBox(
-              width: double.infinity,
-              height: 55,
-              child: ElevatedButton.icon(
-                icon: const Icon(Icons.location_on),
-                label: const Text(
-                  'حفظ موقع المنزل',
-                  style: TextStyle(fontSize: 18),
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  foregroundColor: Colors.white,
-                ),
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text(
-                        'سيتم حفظ موقع المنزل هنا',
-                      ),
-                    ),
-                  );
-                },
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: SizedBox(
+            width: double.infinity,
+            height: 55,
+            child: ElevatedButton.icon(
+              icon: const Icon(Icons.location_on),
+              label: const Text(
+                'حفظ موقع المنزل',
+                style: TextStyle(fontSize: 18),
               ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blue,
+                foregroundColor: Colors.white,
+              ),
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text(
+                      'سيتم حفظ موقع المنزل هنا',
+                    ),
+                  ),
+                );
+              },
             ),
           ),
-        ],
-      ),
-    );
-  }
+        ),
+      ],
+    ),
+  );
 }
 
+
+
 // ==================== صفحة السائق ====================
+
 
 class DriverPage extends StatefulWidget {
   const DriverPage({super.key});
