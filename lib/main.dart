@@ -254,6 +254,7 @@ class _CitizenPageState extends State<CitizenPage> {
   }
 }
 
+
 // ==================== صفحة السائق ====================
 
 class DriverPage extends StatefulWidget {
@@ -273,54 +274,22 @@ class _DriverPageState extends State<DriverPage> {
         title: const Text('تطبيق سائق النظافة'),
         centerTitle: true,
       ),
+
       body: Column(
         children: [
-          SizedBox(
-            height: 350,
-            width: double.infinity,
-            child: Container(
-              color: Colors.grey,
-              child: const Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.map,
-                      size: 70,
-                      color: Colors.blue,
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      'الخريطة ستظهر هنا',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
 
           const SizedBox(height: 20),
 
-          Icon(
-            tripStarted
-                ? Icons.local_shipping
-                : Icons.pause_circle,
+          const Icon(
+            Icons.local_shipping,
             size: 70,
-            color: tripStarted
-                ? Colors.green
-                : Colors.orange,
+            color: Colors.blue,
           ),
 
           const SizedBox(height: 20),
 
           Text(
-            tripStarted
-                ? 'الرحلة تعمل الآن'
-                : 'الرحلة متوقفة',
+            tripStarted ? 'الرحلة تعمل الآن' : 'الرحلة متوقفة',
             style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
@@ -331,29 +300,35 @@ class _DriverPageState extends State<DriverPage> {
 
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
+
             child: SizedBox(
               width: double.infinity,
               height: 55,
+
               child: ElevatedButton.icon(
                 icon: Icon(
                   tripStarted
                       ? Icons.stop
                       : Icons.play_arrow,
                 ),
+
                 label: Text(
                   tripStarted
                       ? 'إيقاف الرحلة'
                       : 'بدء الرحلة',
+
                   style: const TextStyle(
                     fontSize: 18,
                   ),
                 ),
+
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: tripStarted
-                      ? Colors.red
-                      : Colors.green,
+                  backgroundColor:
+                      tripStarted ? Colors.red : Colors.green,
+
                   foregroundColor: Colors.white,
                 ),
+
                 onPressed: () {
                   setState(() {
                     tripStarted = !tripStarted;
