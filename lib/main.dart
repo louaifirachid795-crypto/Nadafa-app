@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 void main() {
   runApp(const NadafaApp());
 }
@@ -138,50 +138,32 @@ class CitizenPage extends StatelessWidget {
     ),
     body: Column(
       children: [
+        
         SizedBox(
-          height: 350,
-          width: double.infinity,
-          child: GoogleMap(
-            initialCameraPosition: const CameraPosition(
-              target: LatLng(36.7538, 3.0588),
-              zoom: 14,
-            ),
-            zoomControlsEnabled: true,
-            myLocationButtonEnabled: false,
-          ),
-        ),
+  height: 350,
+  width: double.infinity,
+  child: GoogleMap(
+    initialCameraPosition: CameraPosition(
+      target: LatLng(36.7538, 3.0588),
+      zoom: 14,
+    ),
+    zoomControlsEnabled: true,
+    myLocationButtonEnabled: false,
+  ),
+),
 
-        const SizedBox(height: 25),
+const SizedBox(height: 25),
 
-        const Icon(
-          Icons.home,
-          size: 70,
-          color: Colors.blue,
-        ),
-                      'الخريطة ستظهر هنا',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
+const Icon(
+  Icons.home,
+  size: 70,
+  color: Colors.blue,
+),
 
-          const SizedBox(height: 25),
+const SizedBox(height: 15),
 
-          const Icon(
-            Icons.home,
-            size: 70,
-            color: Colors.blue,
-          ),
-
-          const SizedBox(height: 15),
-
-          const Text(
-            'حدد موقع منزلك',
+const Text(
+  'حدد موقع منزلك',
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
