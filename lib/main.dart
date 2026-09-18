@@ -142,23 +142,58 @@ class CitizenPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('تطبيق المواطن'),
-        centerTitle: true,
-      ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 350,
-            width: double.infinity,
-            child: GoogleMap(
-              initialCameraPosition: const CameraPosition(
-                target: homeLocation,
-                zoom: 14,
+  return Scaffold(
+    appBar: AppBar(
+      title: const Text('تطبيق المواطن'),
+      centerTitle: true,
+    ),
+    body: Column(
+      children: [
+        SizedBox(
+          height: 350,
+          width: double.infinity,
+          child: Container(
+            color: Colors.grey[200],
+            child: const Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.map,
+                    size: 70,
+                    color: Colors.blue,
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    'الخريطة ستظهر هنا',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
-              myLocationButtonEnabled: true,
-              zoomControlsEnabled: true,
+            ),
+          ),
+        ),
+
+        const SizedBox(height: 25),
+
+        const Icon(
+          Icons.home,
+          size: 70,
+          color: Colors.blue,
+        ),
+
+        const SizedBox(height: 15),
+
+        const Text(
+          'حدد موقع منزلك',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
             ),
           ),
 
