@@ -227,13 +227,11 @@ Widget build(BuildContext context) {
       ],
     ),
   );
+  );
+}
 }
 
-
-
 // ==================== صفحة السائق ====================
-
-
 class DriverPage extends StatefulWidget {
   const DriverPage({super.key});
 
