@@ -149,21 +149,17 @@ class _CitizenPageState extends State<CitizenPage> {
       body: Column(
         children: [
 
-          SizedBox(
-  height: 350,
-  width: double.infinity,
-  child: GoogleMap(
-    initialCameraPosition: const CameraPosition(
-      target: LatLng(36.7538, 3.0588),
-      zoom: 14,
-    ),
-    zoomControlsEnabled: true,
-    myLocationButtonEnabled: true,
-  ),
-),
-
+                  SizedBox(
+            height: 350,
+            width: double.infinity,
+            child: GoogleMap(
+              initialCameraPosition: const CameraPosition(
+                target: LatLng(36.7538, 3.0588),
+                zoom: 14,
+              ),
               markers: markers,
-
+              zoomControlsEnabled: true,
+              myLocationButtonEnabled: true,
               onTap: (LatLng position) {
                 setState(() {
                   selectedHome = position;
