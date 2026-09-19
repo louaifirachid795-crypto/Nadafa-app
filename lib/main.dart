@@ -150,17 +150,17 @@ class _CitizenPageState extends State<CitizenPage> {
         children: [
 
           SizedBox(
-            height: 350,
-            width: double.infinity,
-            child: GoogleMap(
-              initialCameraPosition: CameraPosition(
-                target: LatLng(36.7538, 3.0588),
-                zoom: 14,
-              ),
-
-              zoomControlsEnabled: true,
-
-              myLocationButtonEnabled: false,
+  height: 350,
+  width: double.infinity,
+  child: GoogleMap(
+    initialCameraPosition: const CameraPosition(
+      target: LatLng(36.7538, 3.0588),
+      zoom: 14,
+    ),
+    zoomControlsEnabled: true,
+    myLocationButtonEnabled: true,
+  ),
+),
 
               markers: markers,
 
