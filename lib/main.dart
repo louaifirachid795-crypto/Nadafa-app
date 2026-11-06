@@ -65,19 +65,20 @@ class HomePage extends StatelessWidget {
               width: double.infinity,
               height: 60,
               child: ElevatedButton.icon(
-                icon: const Icon(
-                  Icons.person,
-                  size: 30,
-                ),
-                label: const Text(
-                  'دخول المواطن',
-                  style: TextStyle(fontSize: 20),
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blue,
-                  foregroundColor: Colors.white,
-                ),
-                onPressed: () {
+  icon: const Icon(
+    Icons.person,
+    size: 30,
+  label: const Text(
+  'دخول المواطن',
+  style: TextStyle(fontSize: 20),
+),
+
+style: ElevatedButton.styleFrom(
+  backgroundColor: Colors.blue,
+  foregroundColor: Colors.white,
+),
+
+onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -153,7 +154,7 @@ class _CitizenPageState extends State<CitizenPage> {
             height: 350,
             width: double.infinity,
             child: GoogleMap(
-              initialCameraPosition: const CameraPosition(
+             initialCameraPosition: CameraPosition( 
                 target: LatLng(36.7538, 3.0588),
                 zoom: 14,
               ),
