@@ -61,34 +61,33 @@ class HomePage extends StatelessWidget {
             const SizedBox(height: 40),
 
             // زر المواطن
-            SizedBox(
-              width: double.infinity,
-              height: 60,
-              child: ElevatedButton.icon(
-  icon: const Icon(
-    Icons.person,
-    size: 30,
-  label: const Text(
-  'دخول المواطن',
-  style: TextStyle(fontSize: 20),
+            
+SizedBox(
+  width: double.infinity,
+  height: 60,
+  child: ElevatedButton.icon(
+    icon: const Icon(
+      Icons.person,
+      size: 30,
+    ),
+    label: const Text(
+      'دخول المواطن',
+      style: TextStyle(fontSize: 20),
+    ),
+    style: ElevatedButton.styleFrom(
+      backgroundColor: Colors.blue,
+      foregroundColor: Colors.white,
+    ),
+    onPressed: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const CitizenPage(),
+        ),
+      );
+    },
+  ),
 ),
-
-style: ElevatedButton.styleFrom(
-  backgroundColor: Colors.blue,
-  foregroundColor: Colors.white,
-),
-
-onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const CitizenPage(),
-                    ),
-                  );
-                },
-              ),
-            ),
-
             const SizedBox(height: 20),
 
             // زر السائق
